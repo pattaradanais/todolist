@@ -1,8 +1,9 @@
-import React from 'react'
-import { View, Text,TouchableOpacity,Modal,StyleSheet,TextInput,Button,Alert,ScrollView} from "react-native";
-import { Icon,Overlay } from 'react-native-elements'
-import {  Fab } from 'native-base';
-
+import React from 'react';
+import { View, Text,TouchableOpacity,Modal,StyleSheet,TextInput,Button,Alert,FlatList } from "react-native";
+import { Icon,Overlay } from 'react-native-elements';
+import { Fab } from 'native-base';
+import TodoItem from '../components/TodoItem'
+import AddItemOverlay from '../components/AddItemOverlay'
 
 
 
@@ -11,25 +12,20 @@ export default class ListScreen extends React.Component{
         super(props)
         this.state = {
             data:[
-                {name:'Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb'},
-                {name:'Ceeeeeeeeeeeeeeeeeeeb'},
-                {name:'Ceeeeeeeeeeb'},
-    
-              ],
+                {id : 1, name:'Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb'},
+                {id : 2, name:'Ceeeeeeeeeeeeeeeeeeeb'},
+                {id : 3, name:'Ceeeeeeeeeeb'},],
             active: 'true',
             overlayVisible: false,
-          };
-          
+          };    
     }
 
-    toAdd() {
-        this.props.navigation.navigate('AddScreen')
-        
+
+    onClose = () => { 
+        this.setState({ overlayVisible: false })
     }
 
-    toEdit() {
-        this.props.navigation.navigate('EditScreen')
-    }
+
 
 
     render(){
@@ -38,39 +34,46 @@ export default class ListScreen extends React.Component{
             <View style={styles.container}>
                 <FlatList
                     data={this.state.data}
-                    renderItem={this.renderItem}
-                    // renderItem={({item}) => this.renderItem(item)}
-                />
+                    renderItem={({ item }) => {
+                        return(
+                            <TodoItem 
+                            name={item.name}
+                            />
+ 
+                          )}
+                          }
+                      />
+                    {/* // renderItem={({item}) => this.renderItem(item)} */}
+                
                 {/* <TouchableOpacity onPress={() => this.toAdd()}><Text style={{backgroundColor:'green'}}>Go to add screen</Text></TouchableOpacity>
                 <TouchableOpacity onPress={() => this.toEdit()}><Text style={{backgroundColor:'blue'}}>Go to edit screen</Text></TouchableOpacity> */}
-
+                
                 <Fab
                     active={this.state.active}
                     containerStyle={{ }}
                     style={{ backgroundColor: '#2196c4', }}
                     position="bottomRight"
-                    onPress={() => this.setState({ overlayVisible: true })}>
+                    onPress={() => {
+                        this.setState({ overlayVisible: true })
+                    }}
+                >
+        
                     <Icon
                     name='plus'
                     type='font-awesome'
                     color='#fff'
                     />
+                   
                 
                 </Fab>
 
-                <Overlay isVisible={this.state.overlayVisible} onBackdropPress={() => this.setState({ overlayVisible: false })}  height={200} width={300}> 
-                    <View style={{flex:1}}>
-                        <View style={{flex:3,justifyContent:'space-around',}}>
-                            <Text style={{color:'#156484', fontSize:20, alignSelf:'center',}}>ADD LIST</Text>
-                            <TextInput style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}}  placeholder='Text...'></TextInput>
-                        </View>
-                        <View style={{flex:1, flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
-                            <TouchableOpacity style={styles.abbButton}  onPress={() => null}><Text style={{color:'#156484'}}>add</Text></TouchableOpacity>
-                            <TouchableOpacity style={styles.abbButton}  onPress={() => this.setState({ overlayVisible: false })}><Text style={{color:'#156484'}}>cancle</Text></TouchableOpacity>
-                        </View>
-                    </View>
-  
-                </Overlay>
+                <AddItemOverlay
+                    isVisible={this.state.overlayVisible}
+                    onClose={this.onClose}
+                    
+                   
+                />
+               
                 
             </View>
             
@@ -88,18 +91,18 @@ const styles =StyleSheet.create({
         
         
       },
-      overlayStyle: {
-        // height:200,
-        // width:300,
-        backgroundColor: '#eee',
-        justifyContent: 'center',
-        //padding:20,
-        //alignSelf:'center',
-        borderRadius:10,
-       // marginTop: 40,
+    //   overlayStyle: {
+    //     // height:200,
+    //     // width:300,
+    //     backgroundColor: '#eee',
+    //     justifyContent: 'center',
+    //     //padding:20,
+    //     //alignSelf:'center',
+    //     borderRadius:10,
+    //    // marginTop: 40,
        
         
-      },
+    //   },
   
       abbButton:{
           marginHorizontal: 5,
@@ -111,7 +114,7 @@ const styles =StyleSheet.create({
           alignItems:'center',
           justifyContent:'center',
           shadowColor: 'darkblue',
-         
+
           shadowRadius: 5,
       
           
