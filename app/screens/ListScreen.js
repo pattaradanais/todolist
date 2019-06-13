@@ -12,11 +12,13 @@ export default class ListScreen extends React.Component{
         super(props)
         this.state = {
             data:[
-                {id : 1, name:'Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb'},
-                {id : 2, name:'Ceeeeeeeeeeeeeeeeeeeb'},
-                {id : 3, name:'Ceeeeeeeeeeb'},],
+                { name:'Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb'},
+                { name:'Ceeeeeeeeeeeeeeeeeeeb'},
+                { name:'Ceeeeeeeeeeb'},
+            ],
             active: 'true',
             overlayVisible: false,
+            textInput_Holder: '',
           };    
     }
 
@@ -25,7 +27,25 @@ export default class ListScreen extends React.Component{
         this.setState({ overlayVisible: false })
     }
 
+    pressAdd = () => {
+        if(this.state.textInput_Holder.length == null){
+                alert("Can't be empty");
+                return;
+              }
+        tempObject = { name: this.state.textInput_Holder}
+        this.setState({
+            data : [...this.state.data, tempObject],
+            textInput_Holder:null,
+            overlayVisible:false,
+        })
+    }
 
+    textHolder = (text) => {
+       this.setState({ textInput_Holder: text })
+       console.log(this.state.textInput_Holder)
+    }
+  
+    
 
 
     render(){
@@ -43,11 +63,8 @@ export default class ListScreen extends React.Component{
                           )}
                           }
                       />
-                    {/* // renderItem={({item}) => this.renderItem(item)} */}
-                
-                {/* <TouchableOpacity onPress={() => this.toAdd()}><Text style={{backgroundColor:'green'}}>Go to add screen</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => this.toEdit()}><Text style={{backgroundColor:'blue'}}>Go to edit screen</Text></TouchableOpacity> */}
-                
+
+
                 <Fab
                     active={this.state.active}
                     containerStyle={{ }}
@@ -70,7 +87,8 @@ export default class ListScreen extends React.Component{
                 <AddItemOverlay
                     isVisible={this.state.overlayVisible}
                     onClose={this.onClose}
-                    
+                    pressAdd={this.pressAdd}
+                    textHolder={this.textHolder}
                    
                 />
                

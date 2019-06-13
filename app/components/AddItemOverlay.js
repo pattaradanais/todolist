@@ -16,11 +16,15 @@ export default class AddItemOverlay extends React.Component{
                 <View style={{flex:1}}>
                     <View style={{flex:3,justifyContent:'space-around',}}>
                         <Text style={{color:'#156484', fontSize:20, alignSelf:'center',}}>ADD LIST</Text>
-                        <TextInput style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}}  placeholder='Text...'></TextInput>
+                        <TextInput 
+                            style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}}  
+                            placeholder='Text...'
+                            onChangeText={(text) => this.props.textHolder(text)}
+                            ></TextInput>
                     </View>
                     <View style={{flex:1, flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
-                        <TouchableOpacity style={styles.abbButton}  onPress={() => null}><Text style={{color:'#156484'}}>add</Text></TouchableOpacity>
-                        <TouchableOpacity style={styles.abbButton}  onPress={this.props.onClose}><Text style={{color:'#156484'}}>cancle</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.abbButton}  onPress={() => this.props.pressAdd()}><Text style={{color:'#156484'}}>add</Text></TouchableOpacity>
+                        <TouchableOpacity style={styles.abbButton}  onPress={() => this.props.onClose()}><Text style={{color:'#156484'}}>cancle</Text></TouchableOpacity>
                     </View>
                 </View>
 
