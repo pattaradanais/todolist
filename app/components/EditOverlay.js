@@ -16,10 +16,16 @@ export default class EditOverlay extends React.Component{
                  <View style={{flex:1}}>
                 <View style={{flex:3,justifyContent:'space-around',}}>
                     <Text style={{color:'#156484', fontSize:20, alignSelf:'center',}}>EDIT LIST</Text>
-                    <TextInput style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}} value={this.props.name} ></TextInput>
+                    <TextInput style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}}  
+                                onChangeText={(text) => this.props.textHolder(text)}
+                                defaultValue={this.props.name}
+
+                                >
+                                {/* {console.log(this.props.textHolder)} */}
+                                </TextInput>
                 </View>
                 <View style={{flex:1, flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
-                    <TouchableOpacity style={styles.abbButton}  onPress={() => null}><Text style={{color:'#156484'}}>edit</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.abbButton}  onPress={() => this.props.editItem()}><Text style={{color:'#156484'}}>edit</Text></TouchableOpacity>
                     <TouchableOpacity style={styles.abbButton}  onPress={() => this.props.onClose()}><Text style={{color:'#156484'}}>cancle</Text></TouchableOpacity>
                     <TouchableOpacity style={styles.abbButton}  onPress={() => this.props.delete(this.props.index)}><Text style={{color:'#156484'}}>delete</Text></TouchableOpacity>
                 </View>

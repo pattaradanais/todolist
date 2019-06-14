@@ -8,6 +8,7 @@ import EditOverlay from '../components/EditOverlay'
 
 
 
+
 export default class ListScreen extends React.Component{
     constructor(props){
         super(props)
@@ -22,7 +23,7 @@ export default class ListScreen extends React.Component{
                 { item:'7Ceeeeeeb'},
                 { item:'8Ceeeeeb'},
                 { item:'9Ceeeeb'},
-                { item:'`0Ceeeb'},
+                { item:'10Ceeeb'},
                 { item:'11Ceeb'},
                 { item:'12Ceb'},
             ],
@@ -77,7 +78,7 @@ export default class ListScreen extends React.Component{
 
     textHolder = (text) => {
        this.setState({ textInput_Holder: text })
-       //console.log(this.state.textInput_Holder)
+       
     }
 
     // addTodolist(){
@@ -89,18 +90,26 @@ export default class ListScreen extends React.Component{
     deleteItem = () => {
         this.setState(() => {
             this.state.data.splice(this.state.targetIndex, 1)
+            
+        })
+        this.setState({ 
             editOverlayVIsivle: false 
         })
-       
 
      }
 
-    //  editList({ item, index }) {
-    //     let { item } = this.state.data;
-    //     let editList = item[index];
-    //     item[index] = editList;
-    //     this.setState({ item });
-    // }
+     editItem = () => {
+       
+        this.setState( () => { 
+            this.state.data[this.state.targetIndex].item = this.state.textInput_Holder
+            })
+        this.setState({ 
+            textInput_Holder:'',
+            editOverlayVIsivle: false 
+        })
+        
+        
+    }
     
 
 
@@ -164,8 +173,8 @@ export default class ListScreen extends React.Component{
                 <EditOverlay 
                     isVisible={this.state.editOverlayVIsivle}
                     onClose={this.onCloseEdit}
-                 
-                    
+                    editItem={this.editItem}
+                    textHolder={this.textHolder}
                     delete={this.deleteItem}
                     name={this.state.targetName}
                     index={this.state.targetIndex}
