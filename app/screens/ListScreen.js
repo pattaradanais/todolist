@@ -4,6 +4,7 @@ import { Icon,Overlay } from 'react-native-elements';
 import { Fab } from 'native-base';
 import TodoItem from '../components/TodoItem'
 import AddItemOverlay from '../components/AddItemOverlay'
+import EditOverlay from '../components/EditOverlay'
 
 
 
@@ -12,39 +13,94 @@ export default class ListScreen extends React.Component{
         super(props)
         this.state = {
             data:[
-                { name:'Ceeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeb'},
-                { name:'Ceeeeeeeeeeeeeeeeeeeb'},
-                { name:'Ceeeeeeeeeeb'},
+                { item:'1Ceeeeeeeeeeeeb'},
+                { item:'2Ceeeeeeeeeeeb'},
+                { item:'3Ceeeeeeeeeeb'},
+                { item:'4Ceeeeeeeeeb'},
+                { item:'5Ceeeeeeeeb'},
+                { item:'6Ceeeeeeeb'},
+                { item:'7Ceeeeeeb'},
+                { item:'8Ceeeeeb'},
+                { item:'9Ceeeeb'},
+                { item:'`0Ceeeb'},
+                { item:'11Ceeb'},
+                { item:'12Ceb'},
             ],
             active: 'true',
             overlayVisible: false,
+            editOverlayVIsivle: false,
             textInput_Holder: '',
-          };    
+            targetIndex:0,
+            targetName:''
+          };   
+         
+    }
+    setTarget = (index , item) => {
+        this.setState({ 
+            targetIndex:index,
+            targetName: item,
+         })
+
     }
 
 
+
+    //edit
+    onCloseEdit = () => { 
+        this.setState({ editOverlayVIsivle: false })
+    }
+
+    openEdit = () => {
+        this.setState( {editOverlayVIsivle: true} )
+    }
+
+
+    //add
     onClose = () => { 
         this.setState({ overlayVisible: false })
     }
+    
 
     pressAdd = () => {
-        if(this.state.textInput_Holder.length == null){
-                alert("Can't be empty");
-                return;
-              }
-        tempObject = { name: this.state.textInput_Holder}
+        if(this.state.textInput_Holder.length == 0){
+            alert("Can't be empty")
+            return;
+        }
+        tempObject = { item: this.state.textInput_Holder}
         this.setState({
             data : [...this.state.data, tempObject],
-            textInput_Holder:null,
+            textInput_Holder:'',
             overlayVisible:false,
         })
+        setTimeout(() => this.refs.flatlist.scrollToEnd(), 450)
     }
 
     textHolder = (text) => {
        this.setState({ textInput_Holder: text })
-       console.log(this.state.textInput_Holder)
+       //console.log(this.state.textInput_Holder)
     }
-  
+
+    // addTodolist(){
+    //     let list_todo = this.state.list_todo
+    //     list_todo.push({item: })
+    // }
+    
+
+    deleteItem = () => {
+        this.setState(() => {
+            this.state.data.splice(this.state.targetIndex, 1)
+            editOverlayVIsivle: false 
+        })
+       
+
+     }
+
+    //  editList({ item, index }) {
+    //     let { item } = this.state.data;
+    //     let editList = item[index];
+    //     item[index] = editList;
+    //     this.setState({ item });
+    // }
     
 
 
@@ -53,12 +109,20 @@ export default class ListScreen extends React.Component{
             
             <View style={styles.container}>
                 <FlatList
+                    ref={'flatlist'}
                     data={this.state.data}
-                    renderItem={({ item }) => {
+                    extraData={this.state}
+                    keyExtractor={(item, index) => index.toString()}
+                    renderItem={({ item , index}) => {
+                        // console.log(`${item} ${index}`)
                         return(
                             <TodoItem 
-                            name={item.name}
+                            name={item.item}
+                            index={index}
+                            openEdit={this.openEdit}
+                            setTarget={this.setTarget}
                             />
+                            
  
                           )}
                           }
@@ -72,6 +136,10 @@ export default class ListScreen extends React.Component{
                     position="bottomRight"
                     onPress={() => {
                         this.setState({ overlayVisible: true })
+                        // console.log(this.state.data)
+                        // console.log(this.state.data[this.state.target])
+                        // console.log(this.state.data[this.state.target].item)
+
                     }}
                 >
         
@@ -89,8 +157,22 @@ export default class ListScreen extends React.Component{
                     onClose={this.onClose}
                     pressAdd={this.pressAdd}
                     textHolder={this.textHolder}
-                   
-                />
+                    
+                    />
+
+
+                <EditOverlay 
+                    isVisible={this.state.editOverlayVIsivle}
+                    onClose={this.onCloseEdit}
+                 
+                    
+                    delete={this.deleteItem}
+                    name={this.state.targetName}
+                    index={this.state.targetIndex}
+                >   
+                    
+                    </EditOverlay>
+               
                
                 
             </View>

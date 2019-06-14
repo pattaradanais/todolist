@@ -20,6 +20,7 @@ export default class AddItemOverlay extends React.Component{
                             style={{borderColor:'#bee5f4' , borderWidth:1, borderRadius:5, paddingHorizontal: 5,}}  
                             placeholder='Text...'
                             onChangeText={(text) => this.props.textHolder(text)}
+                            
                             ></TextInput>
                     </View>
                     <View style={{flex:1, flexDirection:'row', justifyContent:'center',alignItems:'center'}}>
