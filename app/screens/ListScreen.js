@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text,TouchableOpacity,Modal,StyleSheet,TextInput,Button,Alert,FlatList } from "react-native";
-import { Icon,Overlay } from 'react-native-elements';
+import { View,StyleSheet,FlatList } from "react-native";
+import { Icon } from 'react-native-elements';
 import { Fab } from 'native-base';
 import TodoItem from '../components/TodoItem'
 import AddItemOverlay from '../components/AddItemOverlay'
@@ -43,9 +43,6 @@ export default class ListScreen extends React.Component{
             targetName: this.state.data[index].item,
             
          })
-
-         
-
     }
 
 

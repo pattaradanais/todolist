@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text,TouchableOpacity,Modal,StyleSheet,TextInput,Button,Alert,FlatList} from "react-native";
-import { Icon,Overlay } from 'react-native-elements'; 
+import { View, Text,TouchableOpacity,StyleSheet,TextInput} from "react-native";
+import { Overlay } from 'react-native-elements'; 
  
 
 export default class AddItemOverlay extends React.Component{

@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { StyleSheet, FlatList, Text, View, Alert, TouchableOpacity, TextInput } from 'react-native';
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
 
 export default class todoItem extends React.Component{
   constructor(props){
