@@ -13,7 +13,8 @@ export default class todoItem extends React.Component{
         <TouchableOpacity style={{flex:3, justifyContent:'center', paddingLeft: 5, }} 
                           onLongPress={()=>{
                             this.props.openEdit() 
-                            this.props.setTarget(this.props.index,this.props.name)
+                            // this.props.setTarget(this.props.index,this.props.name)
+                            this.props.setTarget(this.props.index)
                           }
                           }><Text> {this.props.name} </Text></TouchableOpacity>
         {/* {console.log(this.props.index)} */}

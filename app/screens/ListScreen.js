@@ -14,18 +14,18 @@ export default class ListScreen extends React.Component{
         super(props)
         this.state = {
             data:[
-                { item:'1Ceeeeeeeeeeeeb'},
-                { item:'2Ceeeeeeeeeeeb'},
-                { item:'3Ceeeeeeeeeeb'},
-                { item:'4Ceeeeeeeeeb'},
-                { item:'5Ceeeeeeeeb'},
-                { item:'6Ceeeeeeeb'},
-                { item:'7Ceeeeeeb'},
-                { item:'8Ceeeeeb'},
-                { item:'9Ceeeeb'},
-                { item:'10Ceeeb'},
-                { item:'11Ceeb'},
-                { item:'12Ceb'},
+                { item:'One'},
+                { item:'Two'},
+                { item:'Three'},
+                { item:'Four'},
+                { item:'Five'},
+                { item:'Six'},
+                { item:'Seven'},
+                { item:'Eight'},
+                { item:'Nine'},
+                { item:'Ten'},
+                { item:'Eleven'},
+                { item:'Twelve'},
             ],
             active: 'true',
             overlayVisible: false,
@@ -36,11 +36,15 @@ export default class ListScreen extends React.Component{
           };   
          
     }
-    setTarget = (index , item) => {
+    setTarget = (index) => {
         this.setState({ 
             targetIndex:index,
-            targetName: item,
+            // targetName: item,
+            targetName: this.state.data[index].item,
+            
          })
+
+         
 
     }
 
@@ -99,6 +103,10 @@ export default class ListScreen extends React.Component{
      }
 
      editItem = () => {
+        if(this.state.textInput_Holder.length == 0){
+            alert("Can't be empty")
+            return;
+        }
        
         this.setState( () => { 
             this.state.data[this.state.targetIndex].item = this.state.textInput_Holder
